@@ -1,6 +1,11 @@
 package menjacnica.gui;
 
 import java.awt.EventQueue;
+import java.io.File;
+import java.util.List;
+
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 import menjacnica.Menjacnica;
 import menjacnica.MenjacnicaInterface;
@@ -20,8 +25,9 @@ public class GUIKontroler {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MenjacnicaGUI frame = new MenjacnicaGUI();
-					frame.setVisible(true);
+					prozor = new MenjacnicaGUI();
+					prozor.setVisible(true);
+					menjacnica = new Menjacnica();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -30,8 +36,8 @@ public class GUIKontroler {
 	}
 	
 	public static void dodajKursProzor() {
-		DodajKursGUI prozorDodajKurs = new DodajKursGUI(prozor);
-		prozorDodajKurs.setLocationRelativeTo(prozor.getContentPane());
+		DodajKursGUI prozorDodajKurs = new DodajKursGUI();
+		prozorDodajKurs.setLocationRelativeTo(null);
 		prozorDodajKurs.setVisible(true);
 	}
 	
@@ -50,7 +56,7 @@ public class GUIKontroler {
 	}
 	public static void izvrsiZamenuProzor(Valuta v) {
 		IzvrsiZamenuGUI prozorIzvrsiZamenu = new IzvrsiZamenuGUI();
-		prozorIzvrsiZamenu.setLocationRelativeTo(prozor.getContentPane());
+		prozorIzvrsiZamenu.setLocationRelativeTo(null);
 		prozorIzvrsiZamenu.setVisible(true);
 		valutaZameni = v;
 		prozorIzvrsiZamenu.prikaziValutu(v.getProdajni(), v.getKupovni(), v.getSkraceniNaziv());
@@ -58,7 +64,7 @@ public class GUIKontroler {
 	
 	public static void obrisiKursProzor(Valuta v) {
 		ObrisiKursGUI prozorObrisiKurs = new ObrisiKursGUI();
-		prozorObrisiKurs.setLocationRelativeTo(prozor.getContentPane());
+		prozorObrisiKurs.setLocationRelativeTo(null);
 		prozorObrisiKurs.setVisible(true);
 		valutaObrisi = v;
 		prozorObrisiKurs.prikaziValutu(v.getNaziv(), v.getSkraceniNaziv(), v.getProdajni(), v.getKupovni(), v.getSrednji(), v.getSifra());
@@ -79,4 +85,40 @@ public class GUIKontroler {
 
 	}
 	
+	public static void ucitajIzFajla() {
+		try {
+			JFileChooser fc = new JFileChooser();
+			int returnVal = fc.showOpenDialog(prozor.getContentPane());
+
+			if (returnVal == JFileChooser.APPROVE_OPTION) {
+				File file = fc.getSelectedFile();
+				menjacnica.ucitajIzFajla(file.getAbsolutePath());
+				prozor.prikaziSveValute();
+			}
+		} catch (Exception e1) {
+			JOptionPane.showMessageDialog(prozor.getContentPane(), e1.getMessage(), "Greska",
+					JOptionPane.ERROR_MESSAGE);
+		}
+	}
+	
+
+	public static void sacuvajUFajl() {
+		try {
+			JFileChooser fc = new JFileChooser();
+			int returnVal = fc.showSaveDialog(prozor.getContentPane());
+
+			if (returnVal == JFileChooser.APPROVE_OPTION) {
+				File file = fc.getSelectedFile();
+
+				menjacnica.sacuvajUFajl(file.getAbsolutePath());
+			}
+		} catch (Exception e1) {
+			JOptionPane.showMessageDialog(prozor.getContentPane(), e1.getMessage(), "Greska",
+					JOptionPane.ERROR_MESSAGE);
+		}
+	}
+	
+	public static List<Valuta> vratiSveValute() {
+		return menjacnica.vratiKursnuListu();
+	}
 }

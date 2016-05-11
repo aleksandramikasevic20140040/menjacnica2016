@@ -157,7 +157,17 @@ public class IzvrsiZamenuGUI extends JFrame {
 			btnIzvrsiZamenu = new JButton("Izracunaj iznos");
 			btnIzvrsiZamenu.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					izvrsiZamenu();
+					try{
+							boolean prodaja = rdbtnProdaja.isSelected();
+							String iznos = textFieldIznos.getText();
+							
+							double konacniIznos = GUIKontroler.izvrsiZamenu(prodaja, iznos);
+							textFieldKonacniIznos.setText(""+konacniIznos);
+						} catch (Exception e1) {
+						JOptionPane.showMessageDialog(contentPane, e1.getMessage(),
+								"Greska", JOptionPane.ERROR_MESSAGE);
+					
+					}
 				}
 			});
 			btnIzvrsiZamenu.setBounds(24, 234, 160, 25);
@@ -231,17 +241,5 @@ public class IzvrsiZamenuGUI extends JFrame {
 		textFieldKupovniKurs.setText(""+kupovni);
 		textFieldValuta.setText(skraceniNaziv);
 	}
-	
-	private void izvrsiZamenu(){
-		try{
-			boolean prodaja = rdbtnProdaja.isSelected();
-			String iznos = textFieldIznos.getText();
-			
-			double konacniIznos = GUIKontroler.izvrsiZamenu(prodaja, iznos);
-			textFieldKonacniIznos.setText(""+konacniIznos);
-		} catch (Exception e1) {
-		JOptionPane.showMessageDialog(contentPane, e1.getMessage(),
-				"Greska", JOptionPane.ERROR_MESSAGE);
-	}
-	}
+
 }

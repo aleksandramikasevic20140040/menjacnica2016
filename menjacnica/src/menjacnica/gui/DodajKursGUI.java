@@ -40,13 +40,12 @@ public class DodajKursGUI extends JFrame {
 	private JButton btnDodaj;
 	private JButton btnOdus;
 
-	private MenjacnicaGUI glavniProzor;
 	private JSpinner spinnerSifra;
 
 	/**
 	 * Create the frame.
 	 */
-	public DodajKursGUI(MenjacnicaGUI glavniProzor) {
+	public DodajKursGUI() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(DodajKursGUI.class.getResource("/icons/Screenshot.png")));
 		setResizable(false);
 		setTitle("Dodaj kurs");
@@ -155,8 +154,21 @@ public class DodajKursGUI extends JFrame {
 			btnDodaj = new JButton("Dodaj");
 			btnDodaj.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					unesiKurs();
-				}
+					try {
+							String naziv = textFieldNaziv.getText();
+							String skraceniNaziv = textFieldSkraceniNaziv.getText();
+							Object sifra = spinnerSifra.getValue();
+							String prodajni = textFieldProdajniKurs.getText();
+							String kupovni = textFieldKupovniKurs.getText();
+							String srednji = textFieldSrednjiKurs.getText();
+							GUIKontroler.dodajKurs(naziv, skraceniNaziv, sifra, prodajni, kupovni, srednji);
+							
+						} catch (Exception e1) {
+							JOptionPane.showMessageDialog(contentPane, e1.getMessage(),
+									"Greska", JOptionPane.ERROR_MESSAGE);
+						}
+					}
+				
 			});
 		}
 		return btnDodaj;
@@ -180,19 +192,5 @@ public class DodajKursGUI extends JFrame {
 		return spinnerSifra;
 	}
 	
-	private void unesiKurs() {
-		try {
-			String naziv = textFieldNaziv.getText();
-			String skraceniNaziv = textFieldSkraceniNaziv.getText();
-			Object sifra = spinnerSifra.getValue();
-			String prodajni = textFieldProdajniKurs.getText();
-			String kupovni = textFieldKupovniKurs.getText();
-			String srednji = textFieldSrednjiKurs.getText();
-			GUIKontroler.dodajKurs(naziv, skraceniNaziv, sifra, prodajni, kupovni, srednji);
-			
-		} catch (Exception e1) {
-			JOptionPane.showMessageDialog(contentPane, e1.getMessage(),
-					"Greska", JOptionPane.ERROR_MESSAGE);
-		}
-	}
+
 }
