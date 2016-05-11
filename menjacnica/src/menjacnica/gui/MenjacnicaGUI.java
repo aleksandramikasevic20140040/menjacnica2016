@@ -74,7 +74,7 @@ public class MenjacnicaGUI extends JFrame {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				ugasiAplikaciju();
+				GUIKontroler.ugasiAplikaciju();
 			}
 		});
 		setIconImage(Toolkit.getDefaultToolkit().getImage(MenjacnicaGUI.class.getResource("/icons/Screenshot.png")));
@@ -116,7 +116,6 @@ public class MenjacnicaGUI extends JFrame {
 				public void actionPerformed(ActionEvent e) {
 						GUIKontroler.dodajKursProzor();
 					
-
 				}
 			});
 			btnNewButton.setPreferredSize(new Dimension(140, 25));
@@ -212,7 +211,7 @@ public class MenjacnicaGUI extends JFrame {
 			mntmExit = new JMenuItem("Exit");
 			mntmExit.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					ugasiAplikaciju();
+					GUIKontroler.ugasiAplikaciju();
 				}
 			});
 			mntmExit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, InputEvent.ALT_MASK));
@@ -224,28 +223,16 @@ public class MenjacnicaGUI extends JFrame {
 			mntmAbout = new JMenuItem("About");
 			mntmAbout.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					prikaziAboutProzor();
-				}
+						JOptionPane.showMessageDialog(contentPane,
+								"Autor: Bojan Tomic, Verzija 1.0", "O programu Menjacnica",
+								JOptionPane.INFORMATION_MESSAGE);
+					}
+					
 			});
 		}
 		return mntmAbout;
 	}
 	private static void addPopup(Component component, final JPopupMenu popup) {
-	}
-	
-	private void ugasiAplikaciju() {
-		int opcija = JOptionPane.showConfirmDialog(contentPane,
-				"Da li ZAISTA zelite da izadjete iz apliacije", "Izlazak",
-				JOptionPane.YES_NO_OPTION);
-
-		if (opcija == JOptionPane.YES_OPTION)
-			System.exit(0);
-	}
-	
-	private void prikaziAboutProzor(){
-		JOptionPane.showMessageDialog(contentPane,
-				"Autor: Bojan Tomic, Verzija 1.0", "O programu Menjacnica",
-				JOptionPane.INFORMATION_MESSAGE);
 	}
 	
 	

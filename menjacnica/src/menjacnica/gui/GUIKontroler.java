@@ -121,4 +121,14 @@ public class GUIKontroler {
 	public static List<Valuta> vratiSveValute() {
 		return menjacnica.vratiKursnuListu();
 	}
+	
+	public static void ugasiAplikaciju() {
+		int opcija = JOptionPane.showConfirmDialog(prozor.getContentPane(),
+				"Da li ZAISTA zelite da izadjete iz apliacije", "Izlazak",
+				JOptionPane.YES_NO_OPTION);
+
+		if (opcija == JOptionPane.YES_OPTION)
+			System.exit(0);
+	}
+	
 }
