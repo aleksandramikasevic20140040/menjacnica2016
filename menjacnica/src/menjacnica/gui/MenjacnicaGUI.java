@@ -68,21 +68,6 @@ public class MenjacnicaGUI extends JFrame {
 	protected Menjacnica sistem;
 	private JTable table;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MenjacnicaGUI frame = new MenjacnicaGUI();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
@@ -293,29 +278,23 @@ public class MenjacnicaGUI extends JFrame {
 	}
 	
 	private void prikaziDodajKursGUI() {
-		DodajKursGUI prozor = new DodajKursGUI(this);
-		prozor.setLocationRelativeTo(contentPane);
-		prozor.setVisible(true);
+		GUIKontroler.dodajKursProzor();
 	}
 
 	private void prikaziObrisiKursGUI() {
 		
 		if (table.getSelectedRow() != -1) {
 			MenjacnicaTableModel model = (MenjacnicaTableModel)(table.getModel());
-			ObrisiKursGUI prozor = new ObrisiKursGUI(this,
-					model.vratiValutu(table.getSelectedRow()));
-			prozor.setLocationRelativeTo(contentPane);
-			prozor.setVisible(true);
+			Valuta v = model.vratiValutu(table.getSelectedRow());
+			GUIKontroler.obrisiKursProzor(v);
 		}
 	}
 	
 	private void prikaziIzvrsiZamenuGUI() {
 		if (table.getSelectedRow() != -1) {
 			MenjacnicaTableModel model = (MenjacnicaTableModel)(table.getModel());
-			IzvrsiZamenuGUI prozor = new IzvrsiZamenuGUI(this,
-					model.vratiValutu(table.getSelectedRow()));
-			prozor.setLocationRelativeTo(contentPane);
-			prozor.setVisible(true);
+			Valuta v = model.vratiValutu(table.getSelectedRow());
+			GUIKontroler.izvrsiZamenuProzor(v);
 		}
 	}
 

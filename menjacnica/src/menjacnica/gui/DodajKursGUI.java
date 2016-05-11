@@ -70,10 +70,7 @@ public class DodajKursGUI extends JFrame {
 		contentPane.add(getTextFieldSkraceniNaziv());
 		contentPane.add(getBtnDodaj());
 		contentPane.add(getBtnOdus());
-		
-		//podesavanje
-		this.glavniProzor = glavniProzor;
-				
+						
 	}
 
 	private JLabel getLblSifra() {
@@ -185,24 +182,14 @@ public class DodajKursGUI extends JFrame {
 	
 	private void unesiKurs() {
 		try {
-			Valuta valuta = new Valuta();
-
-			// Punjenje podataka o valuti
-			valuta.setNaziv(textFieldNaziv.getText());
-			valuta.setSkraceniNaziv(textFieldSkraceniNaziv.getText());
-			valuta.setSifra((Integer)(spinnerSifra.getValue()));
-			valuta.setProdajni(Double.parseDouble(textFieldProdajniKurs.getText()));
-			valuta.setKupovni(Double.parseDouble(textFieldKupovniKurs.getText()));
-			valuta.setSrednji(Double.parseDouble(textFieldSrednjiKurs.getText()));
+			String naziv = textFieldNaziv.getText();
+			String skraceniNaziv = textFieldSkraceniNaziv.getText();
+			Object sifra = spinnerSifra.getValue();
+			String prodajni = textFieldProdajniKurs.getText();
+			String kupovni = textFieldKupovniKurs.getText();
+			String srednji = textFieldSrednjiKurs.getText();
+			GUIKontroler.dodajKurs(naziv, skraceniNaziv, sifra, prodajni, kupovni, srednji);
 			
-			// Dodavanje valute u kursnu listu
-			glavniProzor.sistem.dodajValutu(valuta);
-
-			// Osvezavanje glavnog prozora
-			glavniProzor.prikaziSveValute();
-			
-			//Zatvaranje DodajValutuGUI prozora
-			dispose();
 		} catch (Exception e1) {
 			JOptionPane.showMessageDialog(contentPane, e1.getMessage(),
 					"Greska", JOptionPane.ERROR_MESSAGE);

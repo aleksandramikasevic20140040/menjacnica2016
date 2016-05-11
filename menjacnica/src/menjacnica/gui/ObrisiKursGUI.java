@@ -42,13 +42,10 @@ public class ObrisiKursGUI extends JFrame {
 	private JCheckBox chckbxZaistaObrisiKurs;
 	private JLabel label;
 	
-	private MenjacnicaGUI glavniProzor;
-	private Valuta valuta;
-
 	/**
 	 * Create the frame.
 	 */
-	public ObrisiKursGUI(MenjacnicaGUI glavniProzor, Valuta valuta) {
+	public ObrisiKursGUI() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ObrisiKursGUI.class.getResource("/icons/Screenshot.png")));
 		setResizable(false);
 		setTitle("Obrisi kurs");
@@ -73,13 +70,7 @@ public class ObrisiKursGUI extends JFrame {
 		contentPane.add(getChckbxZaistaObrisiKurs());
 		contentPane.add(getLabel());
 		contentPane.add(getBtnDodaj());
-		contentPane.add(getBtnOdus());
-		
-		//podesavanje
-		this.glavniProzor = glavniProzor;
-		this.valuta = valuta;
-		
-		prikaziValutu();
+		contentPane.add(getBtnOdus());		
 	}
 
 	private JLabel getLblSifra() {
@@ -216,22 +207,19 @@ public class ObrisiKursGUI extends JFrame {
 		return label;
 	}
 	
-	private void prikaziValutu() {
-		// Prikaz podataka o valuti
-		textFieldNaziv.setText(valuta.getNaziv());
-		textFieldSkraceniNaziv.setText(valuta.getSkraceniNaziv());
-		textFieldSifra.setText(""+valuta.getSifra());
-		textFieldProdajniKurs.setText(""+valuta.getProdajni());
-		textFieldKupovniKurs.setText(""+valuta.getKupovni());
-		textFieldSrednjiKurs.setText(""+valuta.getSrednji());				
+	public void prikaziValutu(String naziv, String skraceniNaziv, double prodajni, double kupovni, double srednji, int sifra) {
+		textFieldNaziv.setText(naziv);
+		textFieldSkraceniNaziv.setText(skraceniNaziv);
+		textFieldSifra.setText(""+sifra);
+		textFieldProdajniKurs.setText(""+prodajni);
+		textFieldKupovniKurs.setText(""+kupovni);
+		textFieldSrednjiKurs.setText(""+srednji);				
 	}
 
 	private void obrisiValutu() {
 		try{
-			glavniProzor.sistem.obrisiValutu(valuta);
-			
-			glavniProzor.prikaziSveValute();
-			dispose();
+			GUIKontroler.obrisiKurs();
+					dispose();
 		} catch (Exception e1) {
 			JOptionPane.showMessageDialog(contentPane, e1.getMessage(),
 					"Greska", JOptionPane.ERROR_MESSAGE);
